@@ -2,6 +2,7 @@ import { useFirebase } from 'react-redux-firebase';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const useAuth = () => {
   const auth = useSelector(state => state.firebase.auth);
@@ -29,7 +30,11 @@ export const PrivateRoutes = () => {
 
 export const PublicRoute = () => {
   const { auth } = useAuth();
-
+  const location = useLocation();
+  let state;
+  useEffect(() => {
+    return (state = { path: location.pathname });
+  }, []);
   return isLoaded(auth) && isEmpty(auth) ? (
     <Outlet />
   ) : (

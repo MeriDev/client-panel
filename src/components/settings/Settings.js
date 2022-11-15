@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setDisableBalanceonAdd,
@@ -5,11 +6,14 @@ import {
   setAllowRegistration,
 } from '../../redux/actions/SettingsActions';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../helpers/auth';
 
 const Settings = () => {
   const settings = useSelector(state => state.settings);
+  const { auth } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { disableBalanceOnAdd, disableBalanceOnEdit, onAllowRegistration } =
     settings;
@@ -23,6 +27,12 @@ const Settings = () => {
   const onDisableBalanceEditChange = () => {
     dispatch(setDisableBalanceonEdit());
   };
+
+  useEffect(() => {
+    if (!auth.uid) {
+      navigate('/login');
+    }
+  }, [auth.uid]);
 
   return (
     <div>
