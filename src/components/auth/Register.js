@@ -6,6 +6,7 @@ import Alert from '../layout/Alert';
 import { notifyUser } from '../../redux/actions/notifyAction';
 
 const Register = () => {
+  // Init state
   const { message, messageType } = useSelector(state => state.notify);
   const [visible, setIsVisible] = useState(false);
 
@@ -17,6 +18,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // set and clear message
   useEffect(() => {
     if (!message) {
       setIsVisible(false);
@@ -25,7 +27,7 @@ const Register = () => {
     setIsVisible(true);
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [message]);
@@ -41,9 +43,7 @@ const Register = () => {
         navigate('/');
       })
       .catch(err => {
-        setTimeout(() => {
-          dispatch(notifyUser('User already exists', 'error'));
-        }, 1000);
+        dispatch(notifyUser('User already exists', 'error'));
       });
   };
 

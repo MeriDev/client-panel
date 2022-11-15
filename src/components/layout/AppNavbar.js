@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useAuth } from '../../helpers/auth';
 
 const AppNavbar = () => {
+  // Init state
   const navigate = useNavigate();
   const { auth, logout } = useAuth();
 
@@ -13,10 +14,12 @@ const AppNavbar = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Check auth
   useEffect(() => {
     auth.uid ? setIsAuthenticated(true) : setIsAuthenticated(false);
   }, [auth.uid]);
 
+  // Handle logout
   const onLogoutClick = e => {
     e.preventDefault();
     logout().then(() => navigate('/login'));

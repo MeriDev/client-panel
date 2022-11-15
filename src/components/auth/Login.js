@@ -6,6 +6,7 @@ import Alert from '../layout/Alert';
 import { notifyUser } from '../../redux/actions/notifyAction';
 
 const Login = () => {
+  // Init state
   const { message, messageType } = useSelector(state => state.notify);
   const [visible, setIsVisible] = useState(false);
 
@@ -18,6 +19,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Showing and clearning the error message
   useEffect(() => {
     if (!message) {
       setIsVisible(false);
@@ -26,12 +28,12 @@ const Login = () => {
     setIsVisible(true);
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [message]);
-  let from;
 
+  // Submitting the form
   const onSubmit = e => {
     e.preventDefault();
 

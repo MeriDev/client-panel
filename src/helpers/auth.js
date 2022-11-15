@@ -30,11 +30,7 @@ export const PrivateRoutes = () => {
 
 export const PublicRoute = () => {
   const { auth } = useAuth();
-  const location = useLocation();
-  let state;
-  useEffect(() => {
-    return (state = { path: location.pathname });
-  }, []);
+
   return isLoaded(auth) && isEmpty(auth) ? (
     <Outlet />
   ) : (
