@@ -1,25 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
+import { useSelector } from 'react-redux';
 
 const AddClient = () => {
   useFirestoreConnect();
 
   const firestore = useFirestore();
+  const settings = useSelector(state => state.settings);
+  const { disableBalanceOnAdd } = settings;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [balance, setBalance] = useState('');
-
-  // const [client, setClient] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   phone: '',
-  //   balance: '',
-  // });
 
   const navigate = useNavigate();
 
@@ -110,6 +105,7 @@ const AddClient = () => {
                 name="balance"
                 onChange={e => setBalance(e.target.value)}
                 value={balance}
+                disabled={disableBalanceOnAdd}
               />
             </div>
             <button type="sumbit" className="btn btn-primary btn-block">

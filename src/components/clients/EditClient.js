@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 
@@ -9,6 +9,8 @@ const EditClient = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const firestore = useFirestore();
+  const settings = useSelector(state => state.settings);
+  const { disableBalanceOnEdit } = settings;
 
   // fetching clients and connecting to redux
   useFirestoreConnect([{ collection: 'clients', storeAS: 'client', doc: id }]);
@@ -115,6 +117,7 @@ const EditClient = () => {
                   name="balance"
                   defaultValue={client.balance}
                   ref={balanceInput}
+                  disabled={disableBalanceOnEdit}
                 />
               </div>
               <button type="sumbit" className="btn btn-primary btn-block">
